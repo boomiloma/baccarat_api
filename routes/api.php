@@ -30,6 +30,7 @@ Route::controller(GameController::class)->group(function () {
 Route::controller(ConfigController::class)->group(function () {
     Route::get('config/paginate/{params?}', 'paginate');
     Route::post('config', 'store');
+    Route::get('config/{config?}', 'get');
     Route::patch('config/{config}', 'update');
     Route::delete('config/{config}', 'delete');
 });

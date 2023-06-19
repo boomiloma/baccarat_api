@@ -17,18 +17,23 @@ class ConfigController extends Controller
         return $this->configService->paginate($request);
     }
 
+    public function get(Request $request)
+    {
+        return $this->configService->get($request->config);
+    }
+
     public function store(Request $request)
     {
         return $this->configService->store($request->all(), $request->ip());
     }
 
-    public function update(Request $request, Config $gameResult)
+    public function update(Request $request, Config $config)
     {
-        return $this->configService->update($gameResult, $request->all());
+        return $this->configService->update($config, $request->all());
     }
 
-    public function delete(Config $banner)
+    public function delete(Config $config)
     {
-        return $this->configService->delete($banner);
+        return $this->configService->delete($config);
     }
 }

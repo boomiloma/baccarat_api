@@ -35,8 +35,6 @@ class ConfigService
     public function store(array $data, $ip): JsonResponse
     {
         try {
-            // dd($data);
-            // $data
             $gameResult= Config::create($data);
             return response()->json([
                 'messages' => ['Created successfully'],
@@ -46,10 +44,33 @@ class ConfigService
         }
     }
 
-    public function update($city, array $data): JsonResponse
+    public function get($id): JsonResponse
     {
         try {
+            if($id != null) {
+                $config = Config::find($id);
+            } else {
+                $config = Config::latest('id')->first();
+            }
+            if(!empty($config)){
+                return response()->json([
+                    'data' => $config
+                ], 201);
+            }
+            return response()->json([
+                'data' => [],
+                'messsage' => 'Do not have data'
+            ], 201);
 
+        } catch (\Exception$e) {
+            return generalErrorResponse($e);
+        }
+    }
+
+    public function update($config, array $data): JsonResponse
+    {
+        try {
+            $config->update($data);
             return response()->json([
                 'messages' => ['Updated successfully'],
             ], 200);
@@ -59,11 +80,10 @@ class ConfigService
     }
 
 
-    public function delete($city): JsonResponse
+    public function delete($config): JsonResponse
     {
         try {
-            $city->delete();
-
+            $config->delete();
             return response()->json([
                 'messages' => ['Deleted successfully'],
             ], 200);
