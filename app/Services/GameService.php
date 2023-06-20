@@ -37,18 +37,22 @@ class GameService
             $gameResult= GameResult::create($data);
             return response()->json([
                 'messages' => ['Created successfully'],
+                'id' =>  $gameResult->id
             ], 201);
         } catch (\Exception$e) {
             return generalErrorResponse($e);
         }
     }
 
-    public function update($city, array $data): JsonResponse
+    public function update($id,$data): JsonResponse
     {
         try {
-
+            $result = GameResult::find($id);
+            $result->result = $data['result'];
+            $result->update();
             return response()->json([
                 'messages' => ['Updated successfully'],
+                'reuslt' =>  $id
             ], 200);
         } catch (\Exception$e) {
             return generalErrorResponse($e);

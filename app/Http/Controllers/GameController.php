@@ -22,13 +22,13 @@ class GameController extends Controller
         return $this->gameService->store($request->all(), $request->ip());
     }
 
-    public function update(Request $request, GameResult $gameResult)
+    public function update(Request $request)
     {
-        return $this->gameService->update($gameResult, $request->all());
+        return $this->gameService->update($request->id, $request->all());
     }
 
-    public function delete(GameResult $banner)
+    public function delete(GameResult $gameResult)
     {
-        return $this->gameService->delete($banner);
+        return $this->gameService->delete($gameResult);
     }
 }

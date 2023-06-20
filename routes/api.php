@@ -23,8 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(GameController::class)->group(function () {
     Route::get('result/paginate/{params?}', 'paginate');
     Route::post('result', 'store');
-    Route::patch('result/{result}', 'update');
-    Route::delete('result/{result}', 'delete');
+    Route::patch('result/{id}', 'update');
+    Route::delete('result/{id}', 'delete');
 });
 
 Route::controller(ConfigController::class)->group(function () {
